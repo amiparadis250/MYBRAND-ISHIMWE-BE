@@ -4,7 +4,7 @@
   "description": "This is blog API, using Node.js and MongoDB",
   "main": "dist/server.js",
   "scripts": {
-    "build": "npx tsc",
+    "build": "tsc",
     "start": "node dist/server.js",
     "dev": "nodemon server.ts",
     "test": "jest --coverage"
