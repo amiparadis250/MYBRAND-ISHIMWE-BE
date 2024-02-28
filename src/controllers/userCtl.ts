@@ -10,7 +10,7 @@ export const registerUser = async (req:any, res:any) => {
     // Check if user already exists
     const userFound = await User.findOne({ email });
     if (userFound) {
-      return res.json({
+      return res.json.status(409)({
         status: 'error',
         msg: 'User already exists',
       });
@@ -55,7 +55,7 @@ export const loginUser = async (req, res) => {
     // Check password validity
     const isPasswordMatched = await bcrypt.compare(password, userFound.password);
     if (!isPasswordMatched) {
-      return res.json({
+      return res.json.status(409)({
         status: 'error',
         msg: 'Wrong login credentials',
       });
