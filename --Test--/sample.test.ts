@@ -12,8 +12,7 @@ beforeAll(async () => {
     try {
         console.log('Connecting to MongoDB...');
         await mongoose.connect(ENV_db_URL, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
+            
         } as mongoose.ConnectOptions);
         console.log('Connected to MongoDB');
     } catch (error) {

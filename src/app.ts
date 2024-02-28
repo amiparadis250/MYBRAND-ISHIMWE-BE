@@ -3,7 +3,13 @@ import userRoutes from './routes//userRoutes';
 import blogRoutes from './routes/blogRoutes'; 
 import commentRoutes from './routes/commentRoutes';
 import querriesRoutes from './routes/queriesRoutes';
+import documentation from './swagger.json';
+import cors from'cors';
+
+import swaggerjsdoc from 'swagger-jsdoc'
+import swaggerUi from  "swagger-ui-express";
 const app = express();
+app.use(cors());
 app.use(express.json());
 
 
@@ -18,10 +24,11 @@ const upload = multer({ storage });
 // app.use(isAdmin);
 
 // Use routes
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(documentation));
 app.use('/api/users', userRoutes);
 app.use('/api/blogs', blogRoutes); 
 app.use('/api/blogs', commentRoutes); 
 app.use('/api/queries', querriesRoutes)
 
-// Error handling
+
 export default app

@@ -1,0 +1,635 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "my-brand APIs documentation",
+    "description": "APIs for the my-brand project",
+    "contact": {
+      "name": "ISHIMWE Ami Paradis",
+      "email": "pishimweaime7@gmail.com",
+      "telephone": "+2507919666291"
+    },
+    "license": {
+      "name": "ISC"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:9000",
+      "description": "Local development server for swagger"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Authentication",
+      "description": "Register and Login, get profile, retrieving all users"
+    },
+    {
+      "name": "Blogs",
+      "description": "Add blog, get blogs, Update blog, delete blog or Read a single blog"
+    },
+    {
+      "name": "Queries",
+      "description": "Add, read or read all queries"
+    },
+    {
+      "name": "Comments",
+      "description": "Add and Read comments, delete comments"
+    },
+    {
+      "name": "Likes",
+      "description": "Like or unlike a blog"
+    },
+    {
+      "name": "users",
+      "description": "getting all users, deleting users, accessing users profile"
+    }
+  ],
+  "basePath": "/api",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/api/users/register": {
+      "post": {
+        "description": "Create an account",
+        "tags": ["Authentication"],
+        "produces": ["application/json"],
+        "consumes": ["application/json"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "ishimweamiparadis265@gmail.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "12345790003Us*@"
+                  },
+                  "FullName": {
+                    "type": "string",
+                    "example": "ISHIMWEAIME7@gmail7.com"
+                  }
+                },
+                "required": ["email", "password", "FullName"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "FullName": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "password": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["FullName", "email", "password"]
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "User already exists"
+          }
+        }
+      }
+    },
+    "/api/users/login": {
+      "post": {
+        "summary": "User Login",
+        "description": "Authenticate and log in the user.",
+        "tags": ["Authentication"],
+        "produces": ["application/json"],
+        "consumes": ["application/json"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "ishimweamiparadis265@gmail.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "ISHIMWEAIME7@gmail7.com"
+                  }
+                },
+                "required": ["email", "password"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful login",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "type": "string",
+                      "description": "JWT token for authentication"
+                    },
+                    "type": {
+                      "type": "string",
+                      "description": "Authentication type (e.g., Bearer)"
+                    },
+                    "fullName": {
+                      "type": "string",
+                      "description": "User's full name"
+                    },
+                    "email": {
+                      "type": "string",
+                      "description": "User's email address"
+                    },
+                    "role": {
+                      "type": "string",
+                      "description": "User's role or access level"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Wrong login credentials"
+          }
+        }
+      }
+    },
+    "/api/users": {
+      "get": {
+        "description": "Getting all users for the admin panel",
+        "summary": "displaying all users",
+        "tags": ["users", "Authentication"],
+        "produces": ["application/json"],
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized request"
+          }
+        }
+      }
+    },
+    "/api/users/profile": {
+      "get": {
+        "description": "Getting a single user for the admin panel",
+        "summary": "displaying a single user",
+        "tags": ["users", "Authentication"],
+        "produces": ["application/json"],
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized request"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    },
+    "/api/users/profile/{id}": {
+      "delete": {
+        "description": "Deleting a certain user by Admin",
+        "summary": "Deleting",
+        "produces": "application/json",
+        "consumes": "application/json",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "User ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized request"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    },
+    "/api/blogs": {
+      "post": {
+        "description": "Create a blog with valid details",
+        "tags": ["Blogs"],
+        "consumes": ["multipart/form-data"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "title",
+            "in": "formData",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "image",
+            "in": "formData",
+            "type": "file",
+            "required": true
+          },
+          {
+            "name": "content",
+            "in": "formData",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "description",
+            "in": "formData",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      },
+      "get": {
+        "description": "Read blogs",
+        "tags": ["Blogs"],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/blogs/{id}": {
+      "get": {
+        "description": "Read single blogs",
+        "tags": ["Blogs"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      },
+      "put": {
+        "description": "Update a blog",
+        "tags": ["Blogs"],
+        "consumes": ["multipart/form-data"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "title",
+            "in": "formData",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "image",
+            "in": "formData",
+            "type": "file",
+            "required": true
+          },
+          {
+            "name": "content",
+            "in": "formData",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      },
+      "delete": {
+        "description": "Delete a blog",
+        "tags": ["Blogs"],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    
+    
+      "/api/queries": {
+        "post": {
+          "description": "Create a query",
+          "tags": ["Queries"],
+          "consumes": ["application/json"],
+          "produces": ["application/json"],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "email": {
+                      "type": "string"
+                    },
+                    "guestQuery": {
+                      "type": "string"
+                    },
+                    "guestName": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["email", "guestQuery", "guestName"]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "OK"
+            },
+            "400": {
+              "description": "Bad Request"
+            }
+          }
+        }
+      },
+      "/api/queries/{id}": {
+        "get": {
+          "description": "Read a single query",
+          "tags": ["Queries"],
+          "parameters": [
+            {
+              "name": "token",
+              "in": "header",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "id",
+              "in": "path",
+              "type": "string",
+              "required": true
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK"
+            },
+            "400": {
+              "description": "Bad Request"
+            }
+          }
+        },
+        "delete": {
+          "description": "Delete a query",
+          "tags": ["Queries"],
+          "parameters": [
+            {
+              "name": "token",
+              "in": "header",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "id",
+              "in": "path",
+              "type": "string",
+              "required": true
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK"
+            },
+            "400": {
+              "description": "Bad Request"
+            }
+          }
+        }
+      }
+    },
+    
+    "api/blogs/{id}/comments": {
+      "post": {
+        "description": "Add a comment to a blog",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["Comments"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "comment",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "commenterName": {
+                  "type": "string",
+                  "example": "Vicky"
+                },
+                "commenterEmail": {
+                  "type": "string",
+                  "example": "pishimweaime7@gmail.com"
+                },
+                "text": {
+                  "type": "string",
+                  "example": "hi"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal server"
+          }
+        }
+      },
+      "get": {
+        "description": "Read comments for a blog",
+        "tags": ["Comments"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/blogs/{id}/likes": {
+      "post": {
+        "description": "Add like to a blog",
+        "tags": ["Likes"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/blogs/{id}/dislike": {
+      "post": {
+        "description": "Remove like from a blog",
+        "tags": ["Likes"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/blogs/{id}/views": {
+      "post": {
+        "description": "adding views to a blog",
+        "tags": ["Likes"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    }
+  }
