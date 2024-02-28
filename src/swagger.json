@@ -2,8 +2,8 @@
   "openapi": "3.0.0",
   "info": {
     "version": "1.0.0",
-    "title": "my-brand APIs documentation",
-    "description": "APIs for the my-brand project",
+    "title": "My-Brand APIs Documentation",
+    "description": "APIs for the My-Brand Project",
     "contact": {
       "name": "ISHIMWE Ami Paradis",
       "email": "pishimweaime7@gmail.com",
@@ -16,33 +16,33 @@
   "servers": [
     {
       "url": "http://localhost:9000",
-      "description": "Local development server for swagger"
+      "description": "Local Development Server for Swagger"
     }
   ],
   "tags": [
     {
       "name": "Authentication",
-      "description": "Register and Login, get profile, retrieving all users"
+      "description": "Endpoints for user registration, login, profile retrieval, and user management."
     },
     {
       "name": "Blogs",
-      "description": "Add blog, get blogs, Update blog, delete blog or Read a single blog"
+      "description": "Manage blog posts, including creation, retrieval, update, deletion, comments, likes, and views."
     },
     {
       "name": "Queries",
-      "description": "Add, read or read all queries"
+      "description": "Handle user queries, including creation, retrieval, and deletion."
     },
     {
       "name": "Comments",
-      "description": "Add and Read comments, delete comments"
+      "description": "Manage comments on blog posts, including addition and retrieval."
     },
     {
       "name": "Likes",
-      "description": "Like or unlike a blog"
+      "description": "Handle likes on blog posts."
     },
     {
-      "name": "users",
-      "description": "getting all users, deleting users, accessing users profile"
+      "name": "Users",
+      "description": "User-related operations, such as retrieving all users, deleting users, and accessing user profiles."
     }
   ],
   "basePath": "/api",
@@ -52,10 +52,8 @@
   "paths": {
     "/api/users/register": {
       "post": {
-        "description": "Create an account",
+        "summary": "Create an account",
         "tags": ["Authentication"],
-        "produces": ["application/json"],
-        "consumes": ["application/json"],
         "requestBody": {
           "content": {
             "application/json": {
@@ -112,10 +110,7 @@
     "/api/users/login": {
       "post": {
         "summary": "User Login",
-        "description": "Authenticate and log in the user.",
         "tags": ["Authentication"],
-        "produces": ["application/json"],
-        "consumes": ["application/json"],
         "requestBody": {
           "content": {
             "application/json": {
@@ -177,11 +172,8 @@
     },
     "/api/users": {
       "get": {
-        "description": "Getting all users for the admin panel",
-        "summary": "displaying all users",
-        "tags": ["users", "Authentication"],
-        "produces": ["application/json"],
-        "consumes": ["application/json"],
+        "summary": "Get all users for the admin panel",
+        "tags": ["Users", "Authentication"],
         "parameters": [
           {
             "name": "token",
@@ -201,11 +193,8 @@
     },
     "/api/users/profile": {
       "get": {
-        "description": "Getting a single user for the admin panel",
-        "summary": "displaying a single user",
-        "tags": ["users", "Authentication"],
-        "produces": ["application/json"],
-        "consumes": ["application/json"],
+        "summary": "Get a single user for the admin panel",
+        "tags": ["Users", "Authentication"],
         "parameters": [
           {
             "name": "token",
@@ -231,10 +220,8 @@
     },
     "/api/users/profile/{id}": {
       "delete": {
-        "description": "Deleting a certain user by Admin",
-        "summary": "Deleting",
-        "produces": "application/json",
-        "consumes": "application/json",
+        "summary": "Delete a certain user by Admin",
+        "tags": ["Users"],
         "parameters": [
           {
             "name": "id",
@@ -261,10 +248,9 @@
     },
     "/api/blogs": {
       "post": {
-        "description": "Create a blog with valid details",
+        "summary": "Create a blog with valid details",
         "tags": ["Blogs"],
         "consumes": ["multipart/form-data"],
-        "produces": ["application/json"],
         "parameters": [
           {
             "name": "Authorization",
@@ -306,7 +292,7 @@
         }
       },
       "get": {
-        "description": "Read blogs",
+        "summary": "Read blogs",
         "tags": ["Blogs"],
         "responses": {
           "200": {
@@ -320,7 +306,7 @@
     },
     "/api/blogs/{id}": {
       "get": {
-        "description": "Read single blogs",
+        "summary": "Read single blogs",
         "tags": ["Blogs"],
         "parameters": [
           {
@@ -340,10 +326,9 @@
         }
       },
       "put": {
-        "description": "Update a blog",
+        "summary": "Update a blog",
         "tags": ["Blogs"],
         "consumes": ["multipart/form-data"],
-        "produces": ["application/json"],
         "parameters": [
           {
             "name": "token",
@@ -386,7 +371,7 @@
         }
       },
       "delete": {
-        "description": "Delete a blog",
+        "summary": "Delete a blog",
         "tags": ["Blogs"],
         "parameters": [
           {
@@ -406,106 +391,9 @@
         }
       }
     },
-    
-    
-      "/api/queries": {
-        "post": {
-          "description": "Create a query",
-          "tags": ["Queries"],
-          "consumes": ["application/json"],
-          "produces": ["application/json"],
-          "requestBody": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "email": {
-                      "type": "string"
-                    },
-                    "guestQuery": {
-                      "type": "string"
-                    },
-                    "guestName": {
-                      "type": "string"
-                    }
-                  },
-                  "required": ["email", "guestQuery", "guestName"]
-                }
-              }
-            }
-          },
-          "responses": {
-            "200": {
-              "description": "OK"
-            },
-            "400": {
-              "description": "Bad Request"
-            }
-          }
-        }
-      },
-      "/api/queries/{id}": {
-        "get": {
-          "description": "Read a single query",
-          "tags": ["Queries"],
-          "parameters": [
-            {
-              "name": "token",
-              "in": "header",
-              "type": "string",
-              "required": true
-            },
-            {
-              "name": "id",
-              "in": "path",
-              "type": "string",
-              "required": true
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "OK"
-            },
-            "400": {
-              "description": "Bad Request"
-            }
-          }
-        },
-        "delete": {
-          "description": "Delete a query",
-          "tags": ["Queries"],
-          "parameters": [
-            {
-              "name": "token",
-              "in": "header",
-              "type": "string",
-              "required": true
-            },
-            {
-              "name": "id",
-              "in": "path",
-              "type": "string",
-              "required": true
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "OK"
-            },
-            "400": {
-              "description": "Bad Request"
-            }
-          }
-        }
-      }
-    },
-    
-    "api/blogs/{id}/comments": {
+    "/api/blogs/{id}/comments": {
       "post": {
-        "description": "Add a comment to a blog",
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
+        "summary": "Add a comment to a blog",
         "tags": ["Comments"],
         "parameters": [
           {
@@ -513,40 +401,43 @@
             "in": "path",
             "type": "string",
             "required": true
-          },
-          {
-            "name": "comment",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "commenterName": {
-                  "type": "string",
-                  "example": "Vicky"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "commenterName": {
+                    "type": "string",
+                    "example": "Vicky"
+                  },
+                  "commenterEmail": {
+                    "type": "string",
+                    "example": "pishimweaime7@gmail.com"
+                  },
+                  "text": {
+                    "type": "string",
+                    "example": "hi"
+                  }
                 },
-                "commenterEmail": {
-                  "type": "string",
-                  "example": "pishimweaime7@gmail.com"
-                },
-                "text": {
-                  "type": "string",
-                  "example": "hi"
-                }
+                "required": ["commenterName", "commenterEmail", "text"]
               }
             }
           }
-        ],
+        },
         "responses": {
           "200": {
             "description": "OK"
           },
           "500": {
-            "description": "Internal server"
+            "description": "Internal server error"
           }
         }
       },
       "get": {
-        "description": "Read comments for a blog",
+        "summary": "Read comments for a blog",
         "tags": ["Comments"],
         "parameters": [
           {
@@ -566,9 +457,9 @@
         }
       }
     },
-    "/blogs/{id}/likes": {
+    "/api/blogs/{id}/likes": {
       "post": {
-        "description": "Add like to a blog",
+        "summary": "Add a like to a blog",
         "tags": ["Likes"],
         "parameters": [
           {
@@ -588,9 +479,9 @@
         }
       }
     },
-    "/blogs/{id}/dislike": {
+    "/api/blogs/{id}/dislike": {
       "post": {
-        "description": "Remove like from a blog",
+        "summary": "Remove like from a blog",
         "tags": ["Likes"],
         "parameters": [
           {
@@ -610,11 +501,102 @@
         }
       }
     },
-    "/blogs/{id}/views": {
+    "/api/blogs/{id}/views": {
       "post": {
-        "description": "adding views to a blog",
+        "summary": "Add views to a blog",
         "tags": ["Likes"],
         "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/queries": {
+      "post": {
+        "summary": "Create a user query",
+        "tags": ["Queries"],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "guestQuery": {
+                    "type": "string"
+                  },
+                  "guestName": {
+                    "type": "string"
+                  }
+                },
+                "required": ["email", "guestQuery", "guestName"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/queries/{id}": {
+      "get": {
+        "summary": "Read a single user query",
+        "tags": ["Queries"],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a user query",
+        "tags": ["Queries"],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
           {
             "name": "id",
             "in": "path",
@@ -633,3 +615,4 @@
       }
     }
   }
+}
