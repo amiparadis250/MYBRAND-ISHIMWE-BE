@@ -45,10 +45,25 @@
       "description": "User-related operations, such as retrieving all users, deleting users, and accessing user profiles."
     }
   ],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
   "basePath": "/api",
   "schemes": [
     "http"
   ],
+
   "paths": {
     "/api/users/register": {
       "post": {
