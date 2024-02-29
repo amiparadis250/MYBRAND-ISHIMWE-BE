@@ -56,8 +56,22 @@
         "scheme": "bearer",
         "bearerFormat": "JWT"
       }
+    },
+    "schemas": {
+      "MulterFile": {
+        "type": "object",
+        "properties": {
+          "fieldname": { "type": "string" },
+          "originalname": { "type": "string" },
+          "encoding": { "type": "string" },
+          "mimetype": { "type": "string" },
+          "buffer": { "type": "string" },
+          "size": { "type": "integer" }
+        }
+      }
     }
   },
+  
   "security": [
     {
       "bearerAuth": []
@@ -183,7 +197,7 @@
               }
             }
           },
-          "409": {
+          "500": {
             "description": "Wrong login credentials"
           }
         }
@@ -194,11 +208,7 @@
         "summary": "Get all users for the admin panel",
         "tags": ["Users", "Authentication"],
         "parameters": [
-          {
-            "name": "token",
-            "in": "header",
-            "type": "string"
-          }
+          
         ],
         "responses": {
           "200": {
@@ -216,9 +226,7 @@
         "tags": ["Users", "Authentication"],
         "parameters": [
           {
-            "name": "token",
-            "in": "header",
-            "required": true,
+        
             "schema": {
               "type": "string"
             }
@@ -265,151 +273,353 @@
         }
       }
     },
-    "/api/blogs": {
-      "post": {
-        "summary": "Create a blog with valid details",
-        "tags": ["Blogs"],
-        "consumes": ["multipart/form-data"],
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "type": "string"
+  
+     
+        "/api/blogs": {
+          "post": {
+            "summary": "Create a blog with valid details",
+            "tags": ["Blogs"],
+            "requestBody": {
+              "required": true,
+              "content": {
+                "multipart/form-data": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "title": { "type": "string" },
+                      "desc": { "type": "string" },
+                      "content": { "type": "string" },
+                      "file": { "type": "string", "format": "binary" 
+                    }
+                    }
+                  }
+                }
+              }
+            },
+            "parameters": [
+              {
+                "schema": { "type": "string" }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "OK",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "status": { "type": "string" },
+                        "data": {
+                          "type": "object",
+                          "properties": {
+                            "title": { "type": "string" },
+                            "imgsrc": { "type": "string" },
+                            "desc": { "type": "string" },
+                            "content": { "type": "string" },
+                            "user": { "type": "string" }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "400": {
+                "description": "Bad Request",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "status": { "type": "string" },
+                        "message": { "type": "string" }
+                      }
+                    }
+                  }
+                }
+              }
+            }
           },
-          {
-            "name": "title",
-            "in": "formData",
-            "type": "string",
-            "required": true
-          },
-          {
-            "name": "image",
-            "in": "formData",
-            "type": "file",
-            "required": true
-          },
-          {
-            "name": "content",
-            "in": "formData",
-            "type": "string",
-            "required": true
-          },
-          {
-            "name": "description",
-            "in": "formData",
-            "type": "string",
-            "required": true
+          "get": {
+            "summary": "Read blogs",
+            "tags": ["Blogs"],
+            "responses": {
+              "200": {
+                "description": "OK",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "status": { "type": "string" },
+                        "data": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "title": { "type": "string" },
+                              "imgsrc": { "type": "string" },
+                              "desc": { "type": "string" },
+                              "content": { "type": "string" },
+                              "user": { "type": "string" }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "400": {
+                "description": "Bad Request",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "status": { "type": "string" },
+                        "message": { "type": "string" }
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
+        },
+        "/api/blogs/{id}": {
+          "get": {
+            "summary": "Read a single blog",
+            "tags": ["Blogs"],
+            "parameters": [
+              {
+                "name": "id",
+                "in": "path",
+                "description": "Blog ID",
+                "required": true,
+                "schema": { "type": "string" }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "OK",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "status": { "type": "string" },
+                        "data": {
+                          "type": "object",
+                          "properties": {
+                            "title": { "type": "string" },
+                            "imgsrc": { "type": "string" },
+                            "desc": { "type": "string" },
+                            "content": { "type": "string" },
+                            "user": { "type": "string" }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "400": {
+                "description": "Bad Request",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "status": { "type": "string" },
+                        "message": { "type": "string" }
+                      }
+                    }
+                  }
+                }
+              },
+              "404": {
+                "description": "Blog not found",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "status": { "type": "string" },
+                        "message": { "type": "string" }
+                      }
+                    }
+                  }
+                }
+              }
+            }
           },
-          "400": {
-            "description": "Bad Request"
+          "put": {
+            "summary": "Update a blog",
+            "tags": ["Blogs"],
+            "parameters": [
+              {
+                "name": "id",
+                "in": "path",
+                "description": "Blog ID",
+                "required": true,
+                "schema": { "type": "string" }
+              },
+              {
+                
+                "schema": { "type": "string" }
+              }
+            ],
+            "requestBody": {
+              "required": true,
+              "content": {
+                "multipart/form-data": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "title": { "type": "string" },
+                      "desc": { "type": "string" },
+                      "content": { "type": "string" },
+                      "image": { "type": "string", "format": "binary" }
+                    }
+                  }
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "OK",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "status": { "type": "string" },
+                        "data": {
+                          "type": "object",
+                          "properties": {
+                            "title": { "type": "string" },
+                            "imgsrc": { "type": "string" },
+                            "desc": { "type": "string" },
+                            "content": { "type": "string" },
+                            "user": { "type": "string" }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "400": {
+                "description": "Bad Request",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "status": { "type": "string" },
+                        "message": { "type": "string" }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "delete": {
+            "summary": "Delete a blog",
+            "tags": ["Blogs"],
+            "parameters": [
+              {
+                "name": "id",
+                "in": "path",
+                "description": "Blog ID",
+                "required": true,
+                "schema": { "type": "string" }
+              },
+              {
+               
+                "schema": { "type": "string" }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "OK",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "status": { "type": "string" },
+                        "data": { "type": "object" }
+                      }
+                    }
+                  }
+                }
+              },
+              "400": {
+                "description": "Bad Request",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "status": { "type": "string" },
+                        "message": { "type": "string" }
+                      }
+                    }
+                  }
+                }
+              },
+              "401": {
+                "description": "Unauthorized",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "status": { "type": "string" },
+                        "message": { "type": "string" }
+                      }
+                    }
+                  }
+                }
+              },
+              "403": {
+                "description": "Forbidden",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "status": { "type": "string" },
+                        "message": { "type": "string" }
+                      }
+                    }
+                  }
+                }
+              },
+              "404": {
+                "description": "Blog not found",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "status": { "type": "string" },
+                        "message": { "type": "string" }
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
-        }
-      },
-      "get": {
-        "summary": "Read blogs",
-        "tags": ["Blogs"],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        }
-      }
-    },
-    "/api/blogs/{id}": {
-      "get": {
-        "summary": "Read single blogs",
-        "tags": ["Blogs"],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "type": "string",
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        }
-      },
-      "put": {
-        "summary": "Update a blog",
-        "tags": ["Blogs"],
-        "consumes": ["multipart/form-data"],
-        "parameters": [
-          {
-            "name": "token",
-            "in": "header",
-            "type": "string",
-            "required": true
-          },
-          {
-            "name": "id",
-            "in": "path",
-            "type": "string",
-            "required": true
-          },
-          {
-            "name": "title",
-            "in": "formData",
-            "type": "string",
-            "required": true
-          },
-          {
-            "name": "image",
-            "in": "formData",
-            "type": "file",
-            "required": true
-          },
-          {
-            "name": "content",
-            "in": "formData",
-            "type": "string",
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a blog",
-        "tags": ["Blogs"],
-        "parameters": [
-          {
-            "name": "token",
-            "in": "header",
-            "type": "string",
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        }
-      }
-    },
+        },
+      
+    
+    
     "/api/blogs/{id}/comments": {
       "post": {
         "summary": "Add a comment to a blog",
@@ -584,12 +794,7 @@
         "summary": "Read a single user query",
         "tags": ["Queries"],
         "parameters": [
-          {
-            "name": "token",
-            "in": "header",
-            "type": "string",
-            "required": true
-          },
+          
           {
             "name": "id",
             "in": "path",
@@ -610,12 +815,7 @@
         "summary": "Delete a user query",
         "tags": ["Queries"],
         "parameters": [
-          {
-            "name": "token",
-            "in": "header",
-            "type": "string",
-            "required": true
-          },
+          
           {
             "name": "id",
             "in": "path",
@@ -635,3 +835,5 @@
     }
   }
 }
+  
+
