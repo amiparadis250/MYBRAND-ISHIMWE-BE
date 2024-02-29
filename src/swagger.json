@@ -79,7 +79,7 @@
   "basePath": "/api",
   "schemes": ["http"],
   "paths": {
-    "/users/register": {
+    "/api/users/register": {
       "post": {
         "summary": "Create an account",
         "tags": ["Authentication"],
@@ -121,7 +121,7 @@
         }
       }
     },
-    "/users/login": {
+    "/api/users/login": {
       "post": {
         "summary": "User Login",
         "tags": ["Authentication"],
@@ -163,7 +163,7 @@
         }
       }
     },
-    "/users": {
+    "/api/users": {
       "get": {
         "summary": "Get all users for the admin panel",
         "tags": ["Users", "Authentication"],
@@ -178,7 +178,7 @@
         }
       }
     },
-    "/users/profile": {
+    "/api/users/profile": {
       "get": {
         "summary": "Get a single user for the admin panel",
         "tags": ["Users", "Authentication"],
@@ -196,7 +196,7 @@
         }
       }
     },
-    "/users/profile/{id}": {
+    "/api/users/profile/{id}": {
       "delete": {
         "summary": "Delete a certain user by Admin",
         "tags": ["Users"],
@@ -222,7 +222,7 @@
         }
       }
     },
-    "/blogs": {
+    "/api/blogs": {
       "post": {
         "summary": "Create a blog with valid details",
         "tags": ["Blogs"],
@@ -329,7 +329,7 @@
         }
       }
     },
-    "/blogs/{id}": {
+    "/api/blogs/{id}": {
       "get": {
         "summary": "Read a single blog",
         "tags": ["Blogs"],
@@ -550,7 +550,7 @@
         }
       }
     },
-    "/blogs/{id}/comments": {
+    "/api/blogs/{id}/comments": {
       "post": {
         "summary": "Add a comment to a blog",
         "tags": ["Comments"],
@@ -733,7 +733,7 @@
       }
     },
     
-    "/blogs/{id}/likes": {
+    "/api/blogs/{id}/likes": {
       "post": {
         "summary": "Add a like to a blog",
         "tags": ["Likes"],
@@ -755,7 +755,7 @@
         }
       }
     },
-    "/blogs/{id}/dislike": {
+    "/api/blogs/{id}/dislike": {
       "post": {
         "summary": "Remove like from a blog",
         "tags": ["Likes"],
@@ -777,7 +777,7 @@
         }
       }
     },
-    "/blogs/{id}/views": {
+    "/api/blogs/{id}/views": {
       "post": {
         "summary": "Add views to a blog",
         "tags": ["Likes"],
