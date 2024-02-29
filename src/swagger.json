@@ -91,7 +91,7 @@
                 "properties": {
                   "email": { "type": "string", "example": "ishimweamiparadis265@gmail.com" },
                   "password": { "type": "string", "example": "12345790003Us*@" },
-                  "FullName": { "type": "string", "example": "ISHIMWEAIME7@gmail7.com" }
+                  "fullName": { "type": "string", "example": "ISHIMWEAIME7@gmail7.com" }
                 },
                 "required": ["email", "password", "FullName"]
               }
@@ -106,7 +106,7 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "FullName": { "type": "string" },
+                    "fullName": { "type": "string" },
                     "email": { "type": "string" },
                     "password": { "type": "string" }
                   },
@@ -236,7 +236,7 @@
                   "title": { "type": "string" },
                   "desc": { "type": "string" },
                   "content": { "type": "string" },
-                  "image": { "type": "string", "format": "binary" }
+                  "file": { "type": "string", "format": "binary" }
                 }
               }
             }
@@ -418,7 +418,7 @@
                   "title": { "type": "string" },
                   "desc": { "type": "string" },
                   "content": { "type": "string" },
-                  "image": { "type": "string", "format": "binary" }
+                  "file": { "type": "string", "format": "binary" }
                 }
               }
             }
