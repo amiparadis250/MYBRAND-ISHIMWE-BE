@@ -17,6 +17,10 @@
     {
       "url": "http://localhost:9000",
       "description": "Local Development Server for Swagger"
+    },
+    {
+      "url": "https://mybrand-ishimwe-be-halx.onrender.com/",
+      "description": "Development api"
     }
   ],
   "tags": [
