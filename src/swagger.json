@@ -93,7 +93,7 @@
                   "password": { "type": "string", "example": "12345790003Us*@" },
                   "fullName": { "type": "string", "example": "ISHIMWEAIME7@gmail7.com" }
                 },
-                "required": ["email", "password", "FullName"]
+                "required": ["email", "password", "fullName"]
               }
             }
           }
@@ -115,8 +115,8 @@
               }
             }
           },
-          "409": {
-            "description": "User already exists"
+          "40o": {
+            "description": "Bad Request"
           }
         }
       }
@@ -157,8 +157,8 @@
               }
             }
           },
-          "500": {
-            "description": "Wrong login credentials"
+          "400": {
+            "description": "Bad Request"
           }
         }
       }
