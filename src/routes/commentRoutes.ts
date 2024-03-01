@@ -8,10 +8,11 @@ import {
 } from '../controllers/commentsCtl';
 import { isLogin } from '../middlewares/isLogin';
 import isAdmin from '../middlewares/isAdmin';
+import validateComments from '../validations/commentsvalidation';
 
 const commentRoutes = express.Router();
 
-commentRoutes.post('/:id/comments', isLogin, addComment);
+commentRoutes.post('/:id/comments', isLogin,validateComments ,addComment);
 commentRoutes.delete('/:id/comments/:commentId', isLogin, isAdmin, deleteComment);
 commentRoutes.get('/:id/comments/:commentId', getOneComment);
 commentRoutes.get('/:id/comments', getAllCommentsForBlog);

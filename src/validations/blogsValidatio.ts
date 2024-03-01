@@ -14,16 +14,6 @@ export const updateBlogValidation = Joi.object({
     content: Joi.string().max(5000),
 });
 
-// export const addCommentValidation = Joi.object({
-//     text: Joi.string().required().max(1000),
-//     commenterName: Joi.string().required().max(255),
-//     commenterEmail: Joi.string().email().required().max(255),
-// });
 
-// export const updateCommentValidation = Joi.object({
-//     text: Joi.string().max(1000),
-//     commenterName: Joi.string().max(255),
-//     commenterEmail: Joi.string().email().max(255),
-// });
 
 
