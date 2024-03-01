@@ -9,7 +9,7 @@ export const commentsValidationSchema = joi.object({
 const validateComments = async (req, res, next) => {
     const value = commentsValidationSchema.validate(req.body, { abortEarly: false });
     if (value.error) {
-        return res.status(403).send({message:"Invalid comments details",error:value.error.details[0].message});
+        return res.status(403).send({message:"Invalid comments details",error:value.error});
     } else {
         next();
     }

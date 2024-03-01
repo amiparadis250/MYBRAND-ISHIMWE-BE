@@ -9,7 +9,7 @@ export const  validateUserSchema= joi.object({
   const usersValidation = async (req:any, res:any, next) => {
     const value = validateUserSchema.validate(req.body, { abortEarly: false });
     if (value.error) {
-        return res.status(400).res.json({ error: value.error.details[0].message});
+        return res.status(403).res.json({ error: value.error});
     } else {
         next();
     }

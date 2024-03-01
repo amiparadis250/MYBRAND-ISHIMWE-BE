@@ -1,7 +1,7 @@
 // Import necessary modules and functions
 import { Request, Response } from 'express';
 import Blog from "../model/Blogs"; 
-import Comment from "../model/Comments"; 
+import Comment,{CommentModel} from "../model/Comments"; 
 
 export const addComment = async (req: Request, res: Response) => {
     const blogId = req.params.id;
@@ -121,18 +121,16 @@ export const getAllComments = async (req: Request, res: Response) => {
     }
 };
 
-export const getAllCommentsGlobal = async (req: Request, res: Response) => {
+export const getAllCommentsGlobal = async (req: Request, res: Response): Promise<void> => {
     try {
-        // Populate comments before responding
-        const allComments = await Comment.find().populate('blog'); 
+        const allComments: CommentModel[] = await Comment.find();
 
-        // Respond with success and all comments
         res.json({
             status: 'success',
             data: allComments,
         });
     } catch (err) {
-        console.error('Error in getAllCommentsGlobal:', err);
+        console.error('Error in geting AllComments:', err);
         res.status(500).json({
             status: 'error',
             message: err.message,
