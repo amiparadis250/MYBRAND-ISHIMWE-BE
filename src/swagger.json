@@ -628,6 +628,7 @@
       "get": {
         "summary": "Read comments for a blog",
         "tags": ["Comments"],
+        "security": [], 
         "parameters": [
           {
             "name": "id",
@@ -744,6 +745,7 @@
       "post": {
         "summary": "Add a like to a blog",
         "tags": ["Likes"],
+        "security": [], 
         "parameters": [
           {
             "name": "id",
@@ -766,6 +768,7 @@
       "post": {
         "summary": "Remove like from a blog",
         "tags": ["Likes"],
+        "security": [], 
         "parameters": [
           {
             "name": "id",
@@ -788,6 +791,7 @@
       "post": {
         "summary": "Add views to a blog",
         "tags": ["Likes"],
+        "security": [], 
         "parameters": [
           {
             "name": "id",
