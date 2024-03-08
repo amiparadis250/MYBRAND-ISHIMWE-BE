@@ -46,12 +46,12 @@ const blogSchema = new Schema<BlogModel>({
     },
     user: {
         type: Schema.Types.ObjectId,
-        ref: 'User', // Assuming your User model is named 'User'
+        ref: 'User', 
         
     },
     comments: [{
         type: Schema.Types.ObjectId,
-        ref: 'Comment', // Assuming your Comment model is named 'Comment'
+        ref: 'Comment', 
     }],
 });
 

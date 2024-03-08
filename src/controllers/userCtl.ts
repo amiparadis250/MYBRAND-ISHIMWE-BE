@@ -10,7 +10,7 @@ export const registerUser = async (req:any, res:any) => {
     // Check if user already exists
     const userFound = await User.findOne({ email });
     if (userFound) {
-      return res.json.status(409)({
+      return res.status(409).json({
         status: 'error',
         msg: 'User already exists',
       });
@@ -40,13 +40,14 @@ export const registerUser = async (req:any, res:any) => {
 };
 
 // Login
+// Login
 export const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
   try {
     const userFound = await User.findOne({ email });
     if (!userFound) {
-      return res.json({
+      return res.status(409).json({
         status: 'error',
         msg: 'Wrong login credentials',
       });
@@ -55,7 +56,8 @@ export const loginUser = async (req, res) => {
     // Check password validity
     const isPasswordMatched = await bcrypt.compare(password, userFound.password);
     if (!isPasswordMatched) {
-      return res.json.status(409)({
+      // Missing closing bracket for this condition
+      return res.status(409).json({
         status: 'error',
         msg: 'Wrong login credentials',
       });
@@ -63,13 +65,13 @@ export const loginUser = async (req, res) => {
 
     res.json({
       status: 'success',
-      data:{
+      data: {
         id: userFound.id,
-       fullName: userFound.fullName,
+        fullName: userFound.fullName,
         email: userFound.email,
         isAdmin: userFound.isAdmin,
-        token: generateToken(userFound.id)
-      }
+        token: generateToken(userFound.id),
+      },
     });
   } catch (err) {
     console.error(err);
@@ -79,6 +81,7 @@ export const loginUser = async (req, res) => {
     });
   }
 };
+
 //getting user information by ID
 export const getUserProfileById = async (req, res) => {
   try {

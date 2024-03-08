@@ -1,8 +1,9 @@
-import joi from 'joi';
-export const createQuerryValidationSchema =joi.object({
-    email: joi.string().email().required(),
-    guestName: joi.string().pattern(/^[a-zA-Z\s]{5,}$/).required(),
-    guestQuery: joi.string().min(10).required(),
+import joi from 'joi'
+
+    export const createQuerryValidationSchema = joi.object({
+        email: joi.string().email().required(),
+        guestName: joi.string().pattern(/^[a-zA-Z\s]{5,}$/).required(),
+        guestQuery: joi.string().min(5).required(),
     });
 
 

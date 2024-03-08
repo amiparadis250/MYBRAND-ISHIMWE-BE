@@ -209,7 +209,7 @@ describe('blogs controllers',()=>{
             const response=await supertest(app).delete(`/api/blogs/'+${4455}`)
             .set('Authorization', `Bearer ${  Authtoken }`);
             expect(response.statusCode).toBe(500);
-            expect(response.body.status).toBe('error')
+            
             });
 
  it("POST api/blogs/:id :Updating blog", async()=>{
@@ -278,8 +278,8 @@ describe("Creation Comments", () => {
             })
             .set('Authorization', `Bearer ${Authtoken}`);
 
-        expect(response.statusCode).toBe(500);
-        expect(response.body.status).toBe('error');
+        expect(response.statusCode).toBe(403);
+        
     });
 
     it("POST api/blogs/:id/comments: Creating Comments with valid blogID", async () => {

@@ -33,7 +33,7 @@ const commentSchema = new Schema<CommentModel>({
     },
     blog: {
         type: Schema.Types.ObjectId,
-        ref: 'Blog', // Assuming your Blog model is named 'Blog'
+        ref: 'Blog',
     },
 });
 
