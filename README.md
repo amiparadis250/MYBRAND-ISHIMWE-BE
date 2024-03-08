@@ -1,7 +1,7 @@
 [![Node.js CI](https://github.com/amiparadis250/MYBRAND-ISHIMWE-BE/actions/workflows/testing.yml/badge.svg)](https://github.com/amiparadis250/MYBRAND-ISHIMWE-BE/actions/workflows/testing.yml)
 [![codecov](https://codecov.io/gh/amiparadis250/MYBRAND-ISHIMWE-BE/graph/badge.svg?token=ZOIJA84ARX)](https://codecov.io/gh/amiparadis250/MYBRAND-ISHIMWE-BE)
 
-
+[![Netlify Status](https://api.netlify.com/api/v1/badges/300c6a21-b91f-455c-9703-17ba568ff921/deploy-status)](https://app.netlify.com/sites/ishimweamiparadis/deploys)
 
 
 # MYBRAND-ISHIMWE-BE
