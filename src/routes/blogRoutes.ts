@@ -45,7 +45,7 @@ router.post('/', upload.single('file'),isLogin,isAdmin, async (req:any, res) => 
 });
 
 // Update a blog by ID
-router.patch('/:id', upload.single('file'),isLogin,isAdmin, async (req:any, res) => {
+router.put('/:id', upload.single('file'),isLogin,isAdmin, async (req:any, res) => {
     try {
         // Validate request body
         const { error } = updateBlogValidation.validate(req.body);
