@@ -12,7 +12,7 @@ import validateComments from '../validations/commentsvalidation';
 
 const commentRoutes = express.Router();
 
-commentRoutes.post('/:id/comments', isLogin,validateComments ,addComment);
+commentRoutes.post('/:id/comments',validateComments ,addComment);
 commentRoutes.delete('/:id/comments/:commentId', isLogin, isAdmin, deleteComment);
 commentRoutes.get('/:id/comments/:commentId', getOneComment);
 commentRoutes.get('/:id/comments', getAllCommentsForBlog);
