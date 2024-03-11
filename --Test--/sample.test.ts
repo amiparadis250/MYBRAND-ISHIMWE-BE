@@ -59,8 +59,8 @@ describe('Aunthetications', () => {
         const response = await supertest(app)
             .post('/api/users/login')
             .send({
-                "password": "12345790003Us*@",
-                "email": "pishimweaime5000@gmail.com"
+                "password": "0791966291Is*",
+                "email": "amiparadis250@gmail.com"
             });
     
         // Check if the response status is 200
@@ -213,14 +213,14 @@ describe('blogs controllers',()=>{
             });
 
  it("POST api/blogs/:id :Updating blog", async()=>{
-    const response=await supertest(app).put('/api/blogs/'+blogID).
+    const response=await supertest(app).patch('/api/blogs/'+blogID).
     set('Authorization', `Bearer ${  Authtoken }`);
     expect(response.statusCode).toBe(200);
     expect(response.body.status).toBe('success')
     
 });
 it("POST api/blogs/:id :Updating blog without Authorization", async()=>{
-    const response=await supertest(app).put('/api/blogs/'+blogID);
+    const response=await supertest(app).patch('/api/blogs/'+blogID);
     expect(response.statusCode).toBe(401);
     expect(response.body.status).toBe('error');
     expect(response.body.message).toBe('Unauthorized. Token not provided.')

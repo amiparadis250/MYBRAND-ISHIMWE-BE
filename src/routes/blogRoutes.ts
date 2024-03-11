@@ -1,7 +1,7 @@
 // routes/Blogs/allRoutes.js
 import express from 'express';
 import multer from 'multer';
-import { createBlogValidation, updateBlogValidation,  } from '../validations/blogsValidatio';
+import { createBlogValidation  } from '../validations/blogsValidatio';
 import {
     createBlog,
     updateBlogById,
@@ -45,18 +45,9 @@ router.post('/', upload.single('file'),isLogin,isAdmin, async (req:any, res) => 
 });
 
 // Update a blog by ID
-router.put('/:id', upload.single('file'),isLogin,isAdmin, async (req:any, res) => {
+router.patch('/:id', upload.single('file'), isLogin, isAdmin, async (req: any, res) => {
     try {
-        // Validate request body
-        const { error } = updateBlogValidation.validate(req.body);
-        if (error) {
-            return res.status(400).json({
-                status: 'error',
-                message: error.details[0].message,
-            });
-        }
-
-        // Continue with updating the blog
+        // Continue with updating the blog without validation
         await updateBlogById(req, res);
     } catch (err) {
         res.status(500).json({

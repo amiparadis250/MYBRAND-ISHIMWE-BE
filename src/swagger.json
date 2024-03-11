@@ -401,7 +401,7 @@
           }
         }
       },
-      "put": {
+      "patch": {
         "summary": "Update a blog",
         "tags": ["Blogs"],
         "parameters": [
