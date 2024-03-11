@@ -173,29 +173,24 @@ export const deleteComment = async (req: Request, res: Response) => {
     const commentId = req.params.commentId;
 
     try {
-        // Find the blog by ID
-        const blog = await Blog.findById(blogId);
+        // Use findByIdAndUpdate to remove the comment directly
+        const result = await Blog.findByIdAndUpdate(
+            blogId,
+            { $pull: { comments: { _id: commentId } } },
+            { new: true }
+        ).populate('comments');
 
-        if (!blog) {
+        if (!result) {
             return res.status(404).json({
                 status: 'error',
                 message: 'Blog not found',
             });
         }
 
-        // Remove the comment by ID from the comments array
-        blog.comments = blog.comments.filter(comment => comment._id.toString() !== commentId);
-
-        // Save the updated blog
-        await blog.save();
-
-        // Populate comments before responding
-        await blog.populate('comments');
-
         // Respond with success and the updated comments array
         res.json({
             status: 'success',
-            data: blog.comments,
+            data: result.comments,
         });
     } catch (err) {
         console.error('Error in deleteComment:', err);

@@ -70,10 +70,6 @@ export const uploadImageToCloudinary = async (buffer: Buffer): Promise<string> =
     }
 };
 
-// ... (rest of your code)
-
-
-// ... (rest of your code)
 
 
 

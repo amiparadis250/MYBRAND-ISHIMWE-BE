@@ -83,6 +83,7 @@
       "post": {
         "summary": "Create an account",
         "tags": ["Authentication"],
+        "security": [], 
         "requestBody": {
           "content": {
             "application/json": {
@@ -125,6 +126,7 @@
       "post": {
         "summary": "User Login",
         "tags": ["Authentication"],
+        "security": [], 
         "requestBody": {
           "content": {
             "application/json": {
@@ -160,6 +162,7 @@
           "400": {
             "description": "Bad Request"
           }
+          
         }
       }
     },
@@ -285,6 +288,7 @@
       "get": {
         "summary": "Read blogs",
         "tags": ["Blogs"],
+        "security": [], 
         "responses": {
           "200": {
             "description": "OK",
@@ -333,6 +337,7 @@
       "get": {
         "summary": "Read a single blog",
         "tags": ["Blogs"],
+        "security": [], 
         "parameters": [
           {
             "name": "id",
@@ -396,7 +401,7 @@
           }
         }
       },
-      "put": {
+      "patch": {
         "summary": "Update a blog",
         "tags": ["Blogs"],
         "parameters": [
@@ -554,6 +559,7 @@
       "post": {
         "summary": "Add a comment to a blog",
         "tags": ["Comments"],
+        "security": [], 
         "parameters": [
           {
             "name": "id",
@@ -622,6 +628,7 @@
       "get": {
         "summary": "Read comments for a blog",
         "tags": ["Comments"],
+        "security": [], 
         "parameters": [
           {
             "name": "id",
@@ -644,6 +651,7 @@
       "post": {
         "summary": "Create a user query",
         "tags": ["Queries"],
+        "security": [], 
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "requestBody": {
@@ -737,6 +745,7 @@
       "post": {
         "summary": "Add a like to a blog",
         "tags": ["Likes"],
+        "security": [], 
         "parameters": [
           {
             "name": "id",
@@ -759,6 +768,7 @@
       "post": {
         "summary": "Remove like from a blog",
         "tags": ["Likes"],
+        "security": [], 
         "parameters": [
           {
             "name": "id",
@@ -781,6 +791,7 @@
       "post": {
         "summary": "Add views to a blog",
         "tags": ["Likes"],
+        "security": [], 
         "parameters": [
           {
             "name": "id",
