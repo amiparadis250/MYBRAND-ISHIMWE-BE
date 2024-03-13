@@ -283,6 +283,46 @@ export const dislikeBlog = async (req: Request, res: Response) => {
         });
     }
 };
+export const deleteLike = async (req: Request, res: Response) => {
+    const blogId = req.params.id;
+    try {
+        const updatedBlog = await Blog.findByIdAndUpdate(
+            blogId,
+            { $inc: { likes: -1 } }, 
+            { new: true }
+        );
+        res.json({
+            status: 'success',
+            data: updatedBlog,
+        });
+    } catch (err) {
+        res.status(500).json({
+            status: 'error',
+            message: err.message,
+        });
+    }
+};
+
+export const deleteDislike = async (req: Request, res: Response) => {
+    const blogId = req.params.id;
+    try {
+        const updatedBlog = await Blog.findByIdAndUpdate(
+            blogId,
+            { $inc: { dislikes: -1 } }, 
+            { new: true }
+        );
+        res.json({
+            status: 'success',
+            data: updatedBlog,
+        });
+    } catch (err) {
+        res.status(500).json({
+            status: 'error',
+            message: err.message,
+        });
+    }
+};
+
 
 export const viewBlog = async (req: Request, res: Response) => {
     const blogId = req.params.id;

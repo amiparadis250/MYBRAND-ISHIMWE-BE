@@ -11,6 +11,8 @@ import {
     likeBlog,
     dislikeBlog,
     viewBlog,
+    deleteDislike,
+    deleteLike
    
 } from '../controllers/blogsCtrl';
 import { isLogin } from '../middlewares/isLogin';
@@ -80,6 +82,12 @@ router.post('/:id/likes', async (req, res) => {
 // Dislike a blog
 router.post('/:id/dislikes', async (req, res) => {
     await dislikeBlog(req, res);
+});
+router.delete('/:id/dislikes', async (req, res)=>{
+    await deleteDislike(req, res);
+});
+router.delete("/:id/likes", async (req, res)=>{
+    await deleteLike(req, res);
 });
 
 // View a blog
